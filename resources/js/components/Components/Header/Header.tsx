@@ -4,8 +4,14 @@ import {
     AppBar,
     Box,
     Button,
+    createTheme,
+    Divider,
+    Drawer,
+    Icon,
     IconButton,
     InputBase,
+    List,
+    ListItem,
     styled,
     Toolbar,
     Typography,
@@ -13,6 +19,12 @@ import {
 import { Menu as MenuIcon, Search as SearchIcon } from "@mui/icons-material";
 import { routes } from "../../../routes";
 import { Link } from "react-router-dom";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -70,15 +82,7 @@ export default function Header() {
                 sx={{ boxShadow: "none" }}
             >
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
+                    <MobileDrawer />
                     <Typography
                         variant="h6"
                         component="div"
@@ -115,3 +119,100 @@ export default function Header() {
         </Box>
     );
 }
+
+const MobileDrawer = () => {
+    const theme = createTheme();
+    type Anchor = "left";
+
+    const [state, setState] = React.useState({
+        left: false,
+    });
+
+    const toggleStatus =
+        (anchor: Anchor, status: boolean) =>
+        (event: React.KeyboardEvent | React.MouseEvent) => {
+            if (
+                event.type === "keydown" &&
+                ((event as React.KeyboardEvent).key === "Tab" ||
+                    (event as React.KeyboardEvent).key === "Shift")
+            ) {
+                return;
+            }
+
+            setState({ ...state, [anchor]: status });
+        };
+
+    const list = (anchor: Anchor) => (
+        <Box
+            sx={{
+                width: 250,
+            }}
+            role="presentation"
+            onClick={toggleStatus(anchor, false)}
+            onKeyDown={toggleStatus(anchor, false)}
+        >
+            <DrawerHeader>
+                <Typography variant="h5" noWrap>
+                    MMSub Movies
+                </Typography>
+                <IconButton onClick={toggleStatus("left", false)}>
+                    {theme.direction === "ltr" ? (
+                        <ChevronLeftIcon />
+                    ) : (
+                        <ChevronRightIcon />
+                    )}
+                </IconButton>
+            </DrawerHeader>
+            <Divider />
+            <List>
+                {routes.map((route, index) => (
+                    <ListItem button key={route.toString()}>
+                        <ListItemIcon>
+                            <route.icon />
+                        </ListItemIcon>
+                        <ListItemText primary={route.title} />
+                    </ListItem>
+                ))}
+            </List>
+            <Divider />
+        </Box>
+    );
+
+    const DrawerHeader = styled("div")(({ theme }) => ({
+        display: "flex",
+        alignItems: "center",
+        padding: theme.spacing(0, 1),
+        // necessary for content to be below app bar
+        ...theme.mixins.toolbar,
+        justifyContent: "flex-end",
+
+        "& .MuiTypography-root": {
+            flexGrow: 1,
+            textAlign: "center",
+        },
+    }));
+
+    return (
+        <div>
+            <React.Fragment>
+                <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="open drawer"
+                    sx={{ mr: 2 }}
+                    onClick={toggleStatus("left", true)}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <Drawer
+                    anchor={"left"}
+                    open={state["left"]}
+                    onClose={toggleStatus("left", false)}
+                >
+                    {list("left")}
+                </Drawer>
+            </React.Fragment>
+        </div>
+    );
+};

@@ -4,10 +4,14 @@ import Header from "./Components/Header/Header";
 
 const App = () => {
     return (
-        <>
+        <div
+            style={{
+                width: "100vw",
+                height: "100vh",
+            }}
+        >
             <Header />
-            <Button color="primary">MMSub Movies</Button>
-        </>
+        </div>
     );
 };
 
