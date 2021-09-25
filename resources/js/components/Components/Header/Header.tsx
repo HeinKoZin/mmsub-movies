@@ -7,7 +7,6 @@ import {
     createTheme,
     Divider,
     Drawer,
-    Icon,
     IconButton,
     InputBase,
     List,
@@ -15,16 +14,19 @@ import {
     styled,
     Toolbar,
     Typography,
+    useMediaQuery,
 } from "@mui/material";
 import { Menu as MenuIcon, Search as SearchIcon } from "@mui/icons-material";
 import { routes } from "../../../routes";
 import { Link } from "react-router-dom";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import {
+    ChevronLeft as ChevronLeftIcon,
+    ChevronRight as ChevronRightIcon,
+} from "@mui/icons-material";
+
+const theme = createTheme();
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -68,11 +70,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-// const StyledLink = styled(Link)(({ theme }) => ({
-//     color: "inherit",
-//     textDecoration: "none",
-// }));
-
 export default function Header() {
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -85,26 +82,17 @@ export default function Header() {
                     <MobileDrawer />
                     <Typography
                         variant="h6"
-                        component="div"
+                        component="h1"
                         noWrap
                         sx={{
                             flexGrow: 1,
-                            display: { xs: "block", sm: "block" },
+                            display: { xs: "inline-block", sm: "block" },
+                            width: { xs: 250 },
                         }}
                     >
                         MMSub Movies
                     </Typography>
-                    <>
-                        {routes.map((route, index) => {
-                            return (
-                                <Link to={route.path} key={index}>
-                                    <Button color="inherit">
-                                        {route.title}
-                                    </Button>
-                                </Link>
-                            );
-                        })}
-                    </>
+                    <DesktopMenu />
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
@@ -120,8 +108,23 @@ export default function Header() {
     );
 }
 
+const DesktopMenu = () => {
+    return (
+        <>
+            {useMediaQuery(theme.breakpoints.up("sm"))
+                ? routes.map((route, index) => {
+                      return (
+                          <Link to={route.path} key={index}>
+                              <Button color="inherit">{route.title}</Button>
+                          </Link>
+                      );
+                  })
+                : ""}
+        </>
+    );
+};
+
 const MobileDrawer = () => {
-    const theme = createTheme();
     type Anchor = "left";
 
     const [state, setState] = React.useState({
@@ -152,7 +155,7 @@ const MobileDrawer = () => {
             onKeyDown={toggleStatus(anchor, false)}
         >
             <DrawerHeader>
-                <Typography variant="h5" noWrap>
+                <Typography variant="h6" noWrap>
                     MMSub Movies
                 </Typography>
                 <IconButton onClick={toggleStatus("left", false)}>
@@ -178,6 +181,8 @@ const MobileDrawer = () => {
         </Box>
     );
 
+    // NOTE: DrawerHeader
+
     const DrawerHeader = styled("div")(({ theme }) => ({
         display: "flex",
         alignItems: "center",
@@ -192,27 +197,33 @@ const MobileDrawer = () => {
         },
     }));
 
+    // NOTE: Drawer
+
     return (
         <div>
-            <React.Fragment>
-                <IconButton
-                    size="large"
-                    edge="start"
-                    color="inherit"
-                    aria-label="open drawer"
-                    sx={{ mr: 2 }}
-                    onClick={toggleStatus("left", true)}
-                >
-                    <MenuIcon />
-                </IconButton>
-                <Drawer
-                    anchor={"left"}
-                    open={state["left"]}
-                    onClose={toggleStatus("left", false)}
-                >
-                    {list("left")}
-                </Drawer>
-            </React.Fragment>
+            {useMediaQuery(theme.breakpoints.down("sm")) ? (
+                <React.Fragment>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        sx={{ mr: 2 }}
+                        onClick={toggleStatus("left", true)}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Drawer
+                        anchor={"left"}
+                        open={state["left"]}
+                        onClose={toggleStatus("left", false)}
+                    >
+                        {list("left")}
+                    </Drawer>
+                </React.Fragment>
+            ) : (
+                ""
+            )}
         </div>
     );
 };
