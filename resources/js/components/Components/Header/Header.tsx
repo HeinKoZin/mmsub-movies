@@ -4,14 +4,12 @@ import {
     AppBar,
     Box,
     Button,
-    createTheme,
     Divider,
     Drawer,
     IconButton,
     InputBase,
     List,
     ListItem,
-    styled,
     Toolbar,
     Typography,
     useMediaQuery,
@@ -25,6 +23,8 @@ import {
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon,
 } from "@mui/icons-material";
+import { styled, createTheme } from "@mui/material/styles";
+import { spacing } from "@mui/system";
 
 const theme = createTheme();
 
@@ -54,8 +54,8 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
     "& .MuiInputBase-input": {
+        color: theme.palette.common.white,
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
@@ -70,9 +70,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+const Title = styled(Typography)(({ theme }) => ({
+    flexGrow: 1,
+    display: "block",
+    width: 250,
+    color: theme.palette.common.white,
+    [theme.breakpoints.down("sm")]: { marginLeft: theme.spacing(-2.5) },
+}));
+
 export default function Header() {
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, color: "inherit" }}>
             <AppBar
                 position="absolute"
                 color="transparent"
@@ -80,22 +88,13 @@ export default function Header() {
             >
                 <Toolbar>
                     <MobileDrawer />
-                    <Typography
-                        variant="h6"
-                        component="h1"
-                        noWrap
-                        sx={{
-                            flexGrow: 1,
-                            display: { xs: "inline-block", sm: "block" },
-                            width: { xs: 250 },
-                        }}
-                    >
+                    <Title variant="h6" noWrap>
                         MMSub Movies
-                    </Typography>
+                    </Title>
                     <DesktopMenu />
                     <Search>
                         <SearchIconWrapper>
-                            <SearchIcon />
+                            <SearchIcon color="primary" />
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="Search…"
@@ -115,7 +114,7 @@ const DesktopMenu = () => {
                 ? routes.map((route, index) => {
                       return (
                           <Link to={route.path} key={index}>
-                              <Button color="inherit">{route.title}</Button>
+                              <Button>{route.title}</Button>
                           </Link>
                       );
                   })
@@ -206,7 +205,7 @@ const MobileDrawer = () => {
                     <IconButton
                         size="large"
                         edge="start"
-                        color="inherit"
+                        color="primary"
                         aria-label="open drawer"
                         sx={{ mr: 2 }}
                         onClick={toggleStatus("left", true)}

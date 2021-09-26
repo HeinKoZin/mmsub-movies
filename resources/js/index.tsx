@@ -4,7 +4,14 @@ import App from "./components/App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const theme = createTheme();
+const theme = createTheme({
+    palette: {
+        mode: "light",
+        primary: {
+            main: "#ffffff",
+        },
+    },
+});
 
 render(
     <Router>
