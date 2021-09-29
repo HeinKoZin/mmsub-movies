@@ -1,36 +1,44 @@
 import React from "react";
 import Carousel from "react-material-ui-carousel";
-import { Button, Paper } from "@mui/material";
+import {
+    ArrowBackIosNew as ArrowBackIosNewIcon,
+    ArrowForwardIos as ArrowForwardIosIcon,
+} from "@mui/icons-material";
+import { createTheme } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
+import { useMediaQuery } from "@mui/material";
 
-const MovieCarousel = (props: any) => {
-    var items = [
-        {
-            name: "Random Name #1",
-            description: "Probably the most random thing you have ever seen!",
-        },
-        {
-            name: "Random Name #2",
-            description: "Hello World!",
-        },
-    ];
+const theme = createTheme();
 
+// const useStyles = makeStyles((theme) => ({
+//     wrapper: {
+//         "& .MuiSvgIcon-root": {
+//             [theme.breakpoints.down("sm")]: { fontSize: 5 },
+//         },
+//     },
+// }));
+
+const MovieCarousel = (
+    props: JSX.IntrinsicAttributes & { children?: React.ReactNode }
+) => {
     return (
-        <Carousel data-testid="MovieCarousel">
-            {items.map((item, i) => (
-                <Item key={i} item={item} />
-            ))}
+        <Carousel
+            animation="slide"
+            swipe={true}
+            indicators={
+                useMediaQuery(theme.breakpoints.down("sm")) ? false : true
+            }
+            NextIcon={<ArrowForwardIosIcon />}
+            PrevIcon={<ArrowBackIosNewIcon />}
+            next={() => {
+                console.log("next");
+            }}
+            prev={() => {
+                console.log("prev");
+            }}
+        >
+            {props.children}
         </Carousel>
-    );
-};
-
-const Item = (props: any) => {
-    return (
-        <Paper>
-            <h2>{props.item.name}</h2>
-            <p>{props.item.description}</p>
-
-            <Button className="CheckButton">Check it out!</Button>
-        </Paper>
     );
 };
 

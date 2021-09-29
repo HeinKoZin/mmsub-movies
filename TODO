@@ -4,8 +4,8 @@ Projects:
 Todos:
   ✔ Header Component  @done(21-09-26 22:19)
   ✔ Drawer @done(21-09-26 23:13)
-  ☐ Movie Component @started(21-09-28 05:03)
+  ✔ Movie Component @started(21-09-28 05:03) @done(21-09-29 23:14) @lasted(1d18h11m56s)
   ☐ TodayMovie Component (Make reusable for Recommend and Details)
-    ☐ Recommend
+    ✔ Recommend @done(21-09-29 23:15)
     ☐ Details
   ☐ All Movies
