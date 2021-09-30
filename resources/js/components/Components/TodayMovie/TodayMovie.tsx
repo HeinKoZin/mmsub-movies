@@ -105,13 +105,15 @@ const TodayMovie = () => {
     };
 
     useEffect(() => {
-        fetchData();
+        setTimeout(() => {
+            fetchData();
+        }, 1000);
     }, []);
 
     return (
         <MovieCarousel>
             {data?.movieData.results.map((movie) => (
-                <Movie recommend movieData={movie} key={movie.id} />
+                <Movie movieData={movie} key={movie.id} />
             ))}
         </MovieCarousel>
     );
