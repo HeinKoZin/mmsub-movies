@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import { Menu as MenuIcon, Search as SearchIcon } from "@mui/icons-material";
 import { routes } from "../../../routes";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import {
@@ -172,7 +172,8 @@ const MobileDrawer = () => {
                         <ListItemIcon>
                             <route.icon />
                         </ListItemIcon>
-                        <ListItemText primary={route.title} />
+                        {/* <ListItemText primary={route.title} /> */}
+                        <NavLink to={route.path}>{route.title}</NavLink>
                     </ListItem>
                 ))}
             </List>

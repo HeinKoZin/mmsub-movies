@@ -35,7 +35,7 @@ type MovieData = {
 
 const MovieContainer = styled("div")<{ recommend?: boolean }>(
     ({ theme, recommend }) => ({
-        width: "100vw",
+        width: "100%",
         height: recommend ? "500px" : "100vh",
         backgroundImage:
             "url('https://spacequotations.com/wp-content/uploads/2019/01/interstellar.jpg')",

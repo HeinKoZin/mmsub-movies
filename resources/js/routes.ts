@@ -1,4 +1,3 @@
-import { RouteComponentProps } from "react-router-dom";
 import About from "./components/Pages/About/About";
 import Contact from "./components/Pages/Contact/Contact";
 import Help from "./components/Pages/Help/Help";
@@ -10,6 +9,7 @@ import {
     Info as InfoIcon,
     SvgIconComponent,
 } from "@mui/icons-material";
+import { ReactNode } from "react";
 
 export let routes: routesInterface[] = [
     {
@@ -17,6 +17,14 @@ export let routes: routesInterface[] = [
         path: "/",
         component: Home,
         icon: HomeIcon,
+        routes: [
+            {
+                title: "Home",
+                path: "/home/home",
+                component: Home,
+                icon: HomeIcon,
+            },
+        ],
     },
     {
         title: "How To?",
@@ -38,12 +46,13 @@ export let routes: routesInterface[] = [
     },
 ];
 
-interface routesInterface {
+export interface routesInterface {
     title: string;
     path: string;
-    component?:
-        | React.ComponentType<RouteComponentProps<any>>
-        | React.ComponentType<any>;
+    component: React.ComponentType<any> | React.ComponentType<any>;
     // icon: string;
     icon: SvgIconComponent;
+    routes?: routesInterface[];
 }
+
+type StaticContext = {};

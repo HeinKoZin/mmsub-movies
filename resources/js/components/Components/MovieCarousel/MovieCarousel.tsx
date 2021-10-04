@@ -5,7 +5,6 @@ import {
     ArrowForwardIos as ArrowForwardIosIcon,
 } from "@mui/icons-material";
 import { createTheme } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
 import { useMediaQuery } from "@mui/material";
 
 const theme = createTheme();
@@ -26,7 +25,8 @@ const MovieCarousel = (
             animation="slide"
             swipe={true}
             indicators={
-                useMediaQuery(theme.breakpoints.down("sm")) ? false : true
+                // useMediaQuery(theme.breakpoints.down("sm")) ? false : true
+                false
             }
             NextIcon={<ArrowForwardIosIcon />}
             PrevIcon={<ArrowBackIosNewIcon />}

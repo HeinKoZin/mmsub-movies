@@ -14,6 +14,7 @@ import {
     DateRange as DateRangeIcon,
 } from "@mui/icons-material";
 import { RefObject } from "react-transition-group/node_modules/@types/react";
+import { useParams } from "react-router";
 
 const theme = createTheme();
 
@@ -59,7 +60,6 @@ const MovieContainer = styled("div")<{ recommend?: boolean; bgcover?: string }>(
         height: "500px",
         backgroundImage: `url(${bgcover})`,
         backgroundPosition: "top",
-        backgroundAttachment: "fixed",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         display: "flex",
@@ -110,7 +110,7 @@ const MovieCover = (props: MoviePropsTypes) => {
                             ? imagePath + props.movieData.poster_path
                             : "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fblogs-images.forbes.com%2Fscottmendelson%2Ffiles%2F2014%2F10%2F2v00kg8.jpg"
                     }
-                    sx={{ height: { xs: 200, sm: 400 } }}
+                    sx={{ height: { xs: 200, sm: 380 } }}
                 />
 
                 {/* Release Data */}
@@ -156,7 +156,6 @@ const MovieDetail = (props: MoviePropsTypes) => {
     return (
         <>
             <StyledRecommended>Recommended</StyledRecommended>
-
             <Typography
                 component="p"
                 variant="h5"
@@ -229,23 +228,30 @@ const MovieDetail = (props: MoviePropsTypes) => {
     );
 };
 
-const Movie = (props: MoviePropsTypes) => (
-    <MovieContainer
-        data-testid="TodayMovie"
-        sx={{ backgroundPosition: { xs: "right", sm: "right" } }}
-        recommend={props.recommend}
-        bgcover={imagePath + props.movieData?.backdrop_path}
-    >
-        <BgOpacity recommend={props.recommend} />
-        <MovieGrid container recommend={props.recommend} spacing={2}>
-            <Grid item md={3} xs={5}>
-                <MovieCover {...props} />
-            </Grid>
-            <Grid item md={9} xs={7} sx={{ color: theme.palette.common.white }}>
-                <MovieDetail {...props} />
-            </Grid>
-        </MovieGrid>
-    </MovieContainer>
-);
+const Movie = (props: MoviePropsTypes) => {
+    return (
+        <MovieContainer
+            data-testid="TodayMovie"
+            sx={{ backgroundPosition: { xs: "right", sm: "right" } }}
+            recommend={props.recommend}
+            bgcover={imagePath + props.movieData?.backdrop_path}
+        >
+            <BgOpacity recommend={props.recommend} />
+            <MovieGrid container recommend={props.recommend} spacing={2}>
+                <Grid item md={3} xs={5}>
+                    <MovieCover {...props} />
+                </Grid>
+                <Grid
+                    item
+                    md={9}
+                    xs={7}
+                    sx={{ color: theme.palette.common.white }}
+                >
+                    <MovieDetail {...props} />
+                </Grid>
+            </MovieGrid>
+        </MovieContainer>
+    );
+};
 
 export default Movie;
