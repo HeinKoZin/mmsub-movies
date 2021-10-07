@@ -11,6 +11,7 @@ import Home from "./Pages/Home/Home.lazy";
 import Help from "./Pages/Help/Help";
 import Contact from "./Pages/Contact/Contact";
 import About from "./Pages/About/About";
+import RecentlyAdded from "./Components/RecentlyAdded/RecentlyAdded";
 
 const App = () => {
     return (
@@ -27,6 +28,9 @@ const App = () => {
                 ))} */}
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="all" element={<Help />} />
+                <Route path="movies" element={<Help />} />
+                <Route path="series" element={<Help />} />
                 <Route path="help" element={<Help />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="about" element={<About />} />

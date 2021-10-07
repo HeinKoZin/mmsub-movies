@@ -10,7 +10,7 @@ import {
     Typography,
     useMediaQuery,
 } from "@mui/material/";
-import { NavLink, Outlet, Route } from "react-router-dom";
+import { NavLink, Outlet, Route, Routes } from "react-router-dom";
 import { routesInterface } from "../../../routes";
 import Movie from "../Movie/Movie";
 import TodayMovie from "../TodayMovie/TodayMovie.lazy";
@@ -126,7 +126,7 @@ const SortingBar = (props: TabProps) => {
                     />
                 </Tabs> */}
                 <StyledNavLink to="/">All</StyledNavLink>
-                <StyledNavLink to="/movie">movies</StyledNavLink>
+                <StyledNavLink to="/movies">movies</StyledNavLink>
                 <StyledNavLink to="/series">Series</StyledNavLink>
             </Box>
         </Grid>
@@ -164,6 +164,11 @@ const AllMovie = () => {
                         <TabPanel value={value} index={2}>
                             Series
                         </TabPanel> */}
+                        <Routes>
+                            <Route path="/" element={<h2>All</h2>} />
+                            <Route path="/movies" element={<h2>Movies</h2>} />
+                            <Route path="/series" element={<h2>Series</h2>} />
+                        </Routes>
                     </Grid>
                 </Grid>
             </Container>

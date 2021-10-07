@@ -1,17 +1,14 @@
 import React from "react";
-import { Link, Route, useParams } from "react-router-dom";
+import { Link, Outlet, Route, useParams } from "react-router-dom";
 import { routesInterface } from "../../../routes";
-import AllMovie from "../../Components/AllMovie/AllMovie";
-import TodayMovie from "../../Components/TodayMovie/TodayMovie";
+import RecentlyAdded from "../../Components/RecentlyAdded/RecentlyAdded.lazy";
+import TodayMovie from "../../Components/TodayMovie/TodayMovie.lazy";
 
 const Home = () => {
     return (
-        <div
-            data-testid="Home"
-            style={{ margin: 0, padding: 0, width: "100%" }}
-        >
+        <div data-testid="Home" style={{ width: "100%" }}>
             <TodayMovie />
-            <AllMovie />
+            <RecentlyAdded />
         </div>
     );
 };

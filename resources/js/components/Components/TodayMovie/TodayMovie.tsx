@@ -3,6 +3,7 @@ import { createTheme, styled } from "@mui/material/styles";
 import Movie, { ResultsTypes } from "../Movie/Movie";
 import axios from "axios";
 import MovieCarousel from "../MovieCarousel/MovieCarousel";
+import { Paper } from "@mui/material";
 
 const theme = createTheme();
 
@@ -111,11 +112,13 @@ const TodayMovie = () => {
     }, []);
 
     return (
-        <MovieCarousel>
-            {data?.movieData.results.map((movie) => (
-                <Movie movieData={movie} key={movie.id} />
-            ))}
-        </MovieCarousel>
+        <Paper sx={{ width: "100%", height: { xs: 365, sm: 500 } }}>
+            <MovieCarousel>
+                {data?.movieData.results.map((movie) => (
+                    <Movie movieData={movie} key={movie.id} />
+                ))}
+            </MovieCarousel>
+        </Paper>
     );
 };
 

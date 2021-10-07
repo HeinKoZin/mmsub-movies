@@ -10,6 +10,8 @@ import {
     SvgIconComponent,
 } from "@mui/icons-material";
 import { ReactNode } from "react";
+import { ReactComponentElement } from "react-transition-group/node_modules/@types/react";
+import React from "react";
 
 export let routes: routesInterface[] = [
     {
@@ -54,5 +56,3 @@ export interface routesInterface {
     icon: SvgIconComponent;
     routes?: routesInterface[];
 }
-
-type StaticContext = {};

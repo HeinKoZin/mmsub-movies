@@ -127,7 +127,7 @@ const MovieCover = (props: MoviePropsTypes) => {
                     backgroundColor: theme.palette.common.black,
                     padding: theme.spacing(1),
                     display: "relative",
-                    marginTop: -4.7,
+                    marginTop: -4.6,
                     opacity: 0.7,
                 }}
             >
