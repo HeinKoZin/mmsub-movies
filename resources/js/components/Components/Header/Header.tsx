@@ -78,6 +78,17 @@ const Title = styled(Typography)(({ theme }) => ({
     [theme.breakpoints.down("sm")]: { marginLeft: theme.spacing(-2.5) },
 }));
 
+let activeStyle = {
+    color: theme.palette.common.white,
+    fontSize: 15,
+    borderBottomWidth: 2,
+};
+let nonActiveStyle = {
+    color: theme.palette.common.white,
+    fontSize: 15,
+    borderBottomWidth: 0,
+};
+
 export default function Header() {
     return (
         <Box sx={{ flexGrow: 1, color: "inherit" }}>
@@ -113,9 +124,15 @@ const DesktopMenu = () => {
             {useMediaQuery(theme.breakpoints.up("sm"))
                 ? routes.map((route, index) => {
                       return (
-                          <Link to={route.path} key={index}>
+                          <NavLink
+                              to={route.path}
+                              key={index}
+                              style={({ isActive }) =>
+                                  isActive ? activeStyle : nonActiveStyle
+                              }
+                          >
                               <Button>{route.title}</Button>
-                          </Link>
+                          </NavLink>
                       );
                   })
                 : ""}

@@ -27,10 +27,12 @@ const App = () => {
                     />
                 ))} */}
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="all" element={<Help />} />
-                <Route path="movies" element={<Help />} />
-                <Route path="series" element={<Help />} />
+                <Route path="/" element={<Home />}>
+                    <Route path="/" element={<RecentlyAdded />} />
+                    <Route path="all" element={<h3>All</h3>} />
+                    <Route path="movies" element={<h3>Movies</h3>} />
+                    <Route path="series" element={<h3>Series</h3>} />
+                </Route>
                 <Route path="help" element={<Help />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="about" element={<About />} />

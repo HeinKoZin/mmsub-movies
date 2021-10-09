@@ -8,13 +8,11 @@ import {
     Paper,
     Typography,
 } from "@mui/material";
-import { alpha, borderRadius, display, fontSize, width } from "@mui/system";
 import {
     Circle as CircleIcon,
     DateRange as DateRangeIcon,
 } from "@mui/icons-material";
-import { RefObject } from "react-transition-group/node_modules/@types/react";
-import { useParams } from "react-router";
+import zIndex from "@mui/material/styles/zIndex";
 
 const theme = createTheme();
 
