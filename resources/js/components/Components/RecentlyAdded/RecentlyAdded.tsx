@@ -34,8 +34,7 @@ const RecentlyAdded = () => {
 
     return (
         <div data-testid="RecentlyAdded">
-            <Grid container>
-                {/* <Grid
+            {/* <Grid
                     item
                     container
                     md={12}
@@ -57,28 +56,27 @@ const RecentlyAdded = () => {
                         </Typography>
                     </Container>
                 </Grid> */}
-                <Container>
-                    <Grid
-                        item
-                        container
-                        md={12}
-                        spacing={2}
-                        sx={{
-                            paddingTop: theme.spacing(2),
-                            paddingBottom: theme.spacing(2),
-                        }}
-                    >
-                        {data?.results.map((res) => (
-                            <MovieCard
-                                key={res.id}
-                                releaseDate={res.release_date}
-                                cover={res.poster_path}
-                                title={res.original_title}
-                            />
-                        ))}
-                    </Grid>
-                </Container>
-            </Grid>
+            <Container>
+                <Grid
+                    item
+                    container
+                    md={12}
+                    spacing={2}
+                    sx={{
+                        paddingTop: theme.spacing(4),
+                        paddingBottom: theme.spacing(4),
+                    }}
+                >
+                    {data?.results.map((res) => (
+                        <MovieCard
+                            key={res.id}
+                            releaseDate={res.release_date}
+                            cover={res.poster_path}
+                            title={res.original_title}
+                        />
+                    ))}
+                </Grid>
+            </Container>
         </div>
     );
 };

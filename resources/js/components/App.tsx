@@ -12,10 +12,12 @@ import Help from "./Pages/Help/Help";
 import Contact from "./Pages/Contact/Contact";
 import About from "./Pages/About/About";
 import RecentlyAdded from "./Components/RecentlyAdded/RecentlyAdded";
+import Footer from "./Components/Footer/Footer";
 
 const App = () => {
     return (
         <>
+            {/* // NOTE: Header */}
             <Header />
 
             {/* {routes.map((route, i) => (
@@ -26,6 +28,8 @@ const App = () => {
                         exact
                     />
                 ))} */}
+
+            {/* // NOTE: App routes */}
             <Routes>
                 <Route path="/" element={<Home />}>
                     <Route path="/" element={<RecentlyAdded />} />
@@ -37,6 +41,9 @@ const App = () => {
                 <Route path="contact" element={<Contact />} />
                 <Route path="about" element={<About />} />
             </Routes>
+
+            {/* //NOTE: Footer */}
+            <Footer />
         </>
     );
 };

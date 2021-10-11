@@ -22,14 +22,13 @@ const MovieCard = (props: {
         <Grid item md={2} xs={4}>
             <Paper
                 sx={{ width: "100%", backgroundColor: "#1D1E22" }}
-                elevation={10}
+                elevation={4}
             >
                 <Card
                     sx={{
                         borderBottomLeftRadius: 0,
                         borderBottomRightRadius: 0,
                     }}
-                    raised
                 >
                     <CardMedia
                         component="img"
