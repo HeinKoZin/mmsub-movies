@@ -37,7 +37,7 @@ const MovieCard = (props: {
                                 ? imagePath + props.cover
                                 : "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fblogs-images.forbes.com%2Fscottmendelson%2Ffiles%2F2014%2F10%2F2v00kg8.jpg"
                         }
-                        sx={{ height: { xs: 240, sm: 250 } }}
+                        sx={{ height: { xs: 180, sm: 250 } }}
                     />
 
                     {/* Release Data */}

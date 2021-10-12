@@ -1,4 +1,10 @@
-import { Container, createTheme, Grid, Typography } from "@mui/material";
+import {
+    Container,
+    createTheme,
+    Grid,
+    Typography,
+    useMediaQuery,
+} from "@mui/material";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { ResultsTypes } from "../Movie/Movie";
@@ -61,7 +67,9 @@ const RecentlyAdded = () => {
                     item
                     container
                     md={12}
-                    spacing={2}
+                    spacing={
+                        useMediaQuery(theme.breakpoints.down("sm")) ? 1 : 2
+                    }
                     sx={{
                         paddingTop: theme.spacing(4),
                         paddingBottom: theme.spacing(4),
