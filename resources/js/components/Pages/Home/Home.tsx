@@ -102,7 +102,10 @@ const Home = () => {
         <div data-testid="Home" style={{ width: "100%" }}>
             <TodayMovie />
             <HomeMenuBar />
-            <Outlet />
+
+            <Container>
+                <Outlet />
+            </Container>
         </div>
     );
 };
