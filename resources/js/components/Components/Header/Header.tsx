@@ -13,6 +13,7 @@ import {
     Toolbar,
     Typography,
     useMediaQuery,
+    useScrollTrigger,
 } from "@mui/material";
 import { Menu as MenuIcon, Search as SearchIcon } from "@mui/icons-material";
 import { routes } from "../../../routes";
@@ -27,6 +28,15 @@ import { styled, createTheme } from "@mui/material/styles";
 import { spacing } from "@mui/system";
 
 const theme = createTheme();
+
+interface Props {
+    /**
+     * Injected by the documentation to work in an iframe.
+     * You won't need it on your project.
+     */
+    window?: () => Window;
+    children: React.ReactElement;
+}
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -82,38 +92,55 @@ let activeStyle = {
     color: theme.palette.common.white,
     fontSize: 15,
     borderBottomWidth: 2,
+    padding: theme.spacing(1.5, 0),
 };
 let nonActiveStyle = {
     color: theme.palette.common.white,
     fontSize: 15,
     borderBottomWidth: 0,
+    padding: theme.spacing(1.5, 0),
 };
+
+function ElevationScroll(props: Props) {
+    const { children, window } = props;
+    // Note that you normally won't need to set the window ref as useScrollTrigger
+    // will default to window.
+    // This is only being set here because the demo is in an iframe.
+    const trigger = useScrollTrigger({
+        disableHysteresis: true,
+        threshold: 0,
+        target: window ? window() : undefined,
+    });
+
+    return React.cloneElement(children, {
+        elevation: trigger ? 4 : 0,
+        color: trigger ? "secondary" : "transparent",
+    });
+}
 
 export default function Header() {
     return (
         <Box sx={{ flexGrow: 1, color: "inherit" }}>
-            <AppBar
-                position="absolute"
-                color="transparent"
-                sx={{ boxShadow: "none" }}
-            >
-                <Toolbar>
-                    <MobileDrawer />
-                    <Title variant="h6" noWrap>
-                        MMSub Movies
-                    </Title>
-                    <DesktopMenu />
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon color="primary" />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ "aria-label": "search" }}
-                        />
-                    </Search>
-                </Toolbar>
-            </AppBar>
+            <ElevationScroll>
+                <AppBar position="fixed" color="transparent">
+                    <Toolbar>
+                        <MobileDrawer />
+                        <Title variant="h6" noWrap>
+                            MMSub Movies
+                        </Title>
+                        <DesktopMenu />
+                        <Search>
+                            <SearchIconWrapper>
+                                <SearchIcon color="primary" />
+                            </SearchIconWrapper>
+                            <StyledInputBase
+                                placeholder="Search…"
+                                inputProps={{ "aria-label": "search" }}
+                            />
+                        </Search>
+                    </Toolbar>
+                </AppBar>
+            </ElevationScroll>
         </Box>
     );
 }

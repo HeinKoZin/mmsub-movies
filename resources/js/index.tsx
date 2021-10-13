@@ -9,12 +9,16 @@ import {
     ThemeProvider as ThemeProviderOne,
 } from "@mui/material/styles";
 import { ThemeProvider as ThemeProviderTwo } from "@mui/styles";
+import { SWRConfig } from "swr";
 
 let theme = createTheme({
     palette: {
         mode: "light",
         primary: {
             main: "#ffffff",
+        },
+        secondary: {
+            main: "#1D1E22",
         },
     },
 });
@@ -29,7 +33,15 @@ render(
     <Router>
         <ThemeProviderOne theme={theme}>
             <ThemeProviderTwo theme={theme}>
-                <App />
+                <SWRConfig
+                    value={{
+                        refreshInterval: 3000,
+                        fetcher: (resource, init) =>
+                            fetch(resource, init).then((res) => res.json()),
+                    }}
+                >
+                    <App />
+                </SWRConfig>
             </ThemeProviderTwo>
         </ThemeProviderOne>
     </Router>,
