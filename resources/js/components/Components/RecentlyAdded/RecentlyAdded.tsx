@@ -32,12 +32,7 @@ const RecentlyAdded = () => {
                 }}
             >
                 {data?.results.map((res) => (
-                    <MovieCard
-                        key={res.id}
-                        releaseDate={res.release_date}
-                        cover={res.poster_path}
-                        title={res.original_title}
-                    />
+                    <MovieCard key={res.id} {...res} />
                 ))}
             </Grid>
         </div>

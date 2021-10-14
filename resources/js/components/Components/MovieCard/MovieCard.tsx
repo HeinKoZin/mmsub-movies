@@ -11,26 +11,56 @@ import {
     DateRange as DateRangeIcon,
     Circle as CircleIcon,
     AccessTime as AccessTimeIcon,
+    Star as StarIcon,
 } from "@mui/icons-material";
-import { fontSize } from "@mui/system";
+import { ResultsTypes } from "../Movie/Movie";
 
 const imagePath = "https://image.tmdb.org/t/p/original";
 
 const theme = createTheme();
 
-const MovieCard = (props: {
-    cover?: string;
-    releaseDate?: string;
-    title?: string;
-}) => {
+const MovieCard = (props?: ResultsTypes) => {
     return (
         <Grid item md={2} xs={4}>
-            <Card>
+            <Card sx={{ position: "relative" }}>
+                <div
+                    style={{
+                        position: "absolute",
+                        display: "flex",
+                        justifyContent: "end",
+                        alignItems: "center",
+                        right: 4,
+                        top: 4,
+                    }}
+                >
+                    <Typography
+                        variant="caption"
+                        color="primary"
+                        align="center"
+                        sx={{
+                            width: 50,
+                            backgroundColor: theme.palette.common.black,
+                            padding: theme.spacing(0.5),
+                            display: "block",
+                            opacity: 0.8,
+                        }}
+                    >
+                        <StarIcon
+                            sx={{
+                                color: "#fe9920",
+                                fontSize: 16,
+                                marginRight: 0.5,
+                                marginLeft: 0,
+                            }}
+                        />
+                        {props?.vote_average}
+                    </Typography>
+                </div>
                 <CardMedia
                     component="img"
                     image={
-                        props.cover
-                            ? imagePath + props.cover
+                        props?.poster_path
+                            ? imagePath + props.poster_path
                             : "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fblogs-images.forbes.com%2Fscottmendelson%2Ffiles%2F2014%2F10%2F2v00kg8.jpg"
                     }
                     sx={{ height: { xs: 180, sm: 250 } }}
@@ -39,24 +69,6 @@ const MovieCard = (props: {
                 {/* Release Data */}
             </Card>
 
-            {/* <Typography
-                component="p"
-                variant="subtitle2"
-                noWrap
-                textAlign="center"
-                color={theme.palette.common.white}
-                sx={{
-                    width: "100%",
-                    backgroundColor: theme.palette.common.black,
-                    padding: theme.spacing(1),
-                    display: "relative",
-                    marginTop: -4.6,
-                    opacity: 0.7,
-                }}
-            >
-                <DateRangeIcon sx={{ fontSize: 18, marginRight: 1 }} />
-                {props.releaseDate}
-            </Typography> */}
             <Typography
                 component="p"
                 variant="subtitle2"
@@ -64,7 +76,7 @@ const MovieCard = (props: {
                 sx={{ padding: theme.spacing(1, 0), width: "100%" }}
                 noWrap
             >
-                {props.title}
+                {props?.title}
             </Typography>
             <Typography
                 component="p"
@@ -73,7 +85,7 @@ const MovieCard = (props: {
                 sx={{ padding: theme.spacing(0), width: "100%", opacity: 0.7 }}
                 noWrap
             >
-                {props.releaseDate?.slice(0, 4)}{" "}
+                {props?.release_date?.slice(0, 4)}{" "}
                 <CircleIcon
                     sx={{ fontSize: 6, marginLeft: 1, marginRight: 1 }}
                 />
