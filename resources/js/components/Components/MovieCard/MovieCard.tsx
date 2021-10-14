@@ -7,7 +7,12 @@ import {
     Paper,
     Typography,
 } from "@mui/material";
-import { DateRange as DateRangeIcon } from "@mui/icons-material";
+import {
+    DateRange as DateRangeIcon,
+    Circle as CircleIcon,
+    AccessTime as AccessTimeIcon,
+} from "@mui/icons-material";
+import { fontSize } from "@mui/system";
 
 const imagePath = "https://image.tmdb.org/t/p/original";
 
@@ -20,12 +25,7 @@ const MovieCard = (props: {
 }) => {
     return (
         <Grid item md={2} xs={4}>
-            <Card
-                sx={{
-                    borderBottomLeftRadius: 0,
-                    borderBottomRightRadius: 0,
-                }}
-            >
+            <Card>
                 <CardMedia
                     component="img"
                     image={
@@ -39,7 +39,7 @@ const MovieCard = (props: {
                 {/* Release Data */}
             </Card>
 
-            <Typography
+            {/* <Typography
                 component="p"
                 variant="subtitle2"
                 noWrap
@@ -56,7 +56,7 @@ const MovieCard = (props: {
             >
                 <DateRangeIcon sx={{ fontSize: 18, marginRight: 1 }} />
                 {props.releaseDate}
-            </Typography>
+            </Typography> */}
             <Typography
                 component="p"
                 variant="subtitle2"
@@ -65,6 +65,19 @@ const MovieCard = (props: {
                 noWrap
             >
                 {props.title}
+            </Typography>
+            <Typography
+                component="p"
+                variant="caption"
+                color={theme.palette.common.white}
+                sx={{ padding: theme.spacing(0), width: "100%", opacity: 0.7 }}
+                noWrap
+            >
+                {props.releaseDate?.slice(0, 4)}{" "}
+                <CircleIcon
+                    sx={{ fontSize: 6, marginLeft: 1, marginRight: 1 }}
+                />
+                105 mins
             </Typography>
         </Grid>
     );
