@@ -43,6 +43,7 @@ const MovieCard = (props?: ResultsTypes) => {
                             padding: theme.spacing(0.5),
                             display: "block",
                             opacity: 0.8,
+                            borderRadius: 1,
                         }}
                     >
                         <StarIcon
