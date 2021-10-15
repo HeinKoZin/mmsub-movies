@@ -1,18 +1,13 @@
 import * as React from "react";
-import {
-    BrowserRouter as Router,
-    Outlet,
-    Route,
-    Routes,
-} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Header from "./Components/Header/Header";
-import { routes } from "../routes";
 import Home from "./Pages/Home/Home.lazy";
 import Help from "./Pages/Help/Help";
 import Contact from "./Pages/Contact/Contact";
 import About from "./Pages/About/About";
 import RecentlyAdded from "./Components/RecentlyAdded/RecentlyAdded";
 import Footer from "./Components/Footer/Footer";
+import AllMoviesAndSeries from "./Components/All/AllMoviesAndSeries.lazy";
 
 const App = () => {
     return (
@@ -33,7 +28,7 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Home />}>
                     <Route path="/" element={<RecentlyAdded />} />
-                    <Route path="all" element={<h3>All</h3>} />
+                    <Route path="all" element={<AllMoviesAndSeries />} />
                     <Route path="movies" element={<h3>Movies</h3>} />
                     <Route path="series" element={<h3>Series</h3>} />
                 </Route>

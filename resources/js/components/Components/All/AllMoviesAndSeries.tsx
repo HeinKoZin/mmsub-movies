@@ -1,15 +1,15 @@
 import React from "react";
 import { createTheme, Grid, useMediaQuery } from "@mui/material";
-import { getRecentMovies } from "../../Hooks/api";
+import { getAllMoviesAndSeries } from "../../Hooks/api";
 import MovieCard from "../MovieCard/MovieCard.lazy";
 
 const theme = createTheme();
 
-const RecentlyAdded = () => {
-    const data = getRecentMovies();
+const AllMoviesAndSeries = () => {
+    const data = getAllMoviesAndSeries();
 
     return (
-        <div data-testid="RecentlyAdded">
+        <div data-testid="AllMoviesAndSeries">
             <Grid
                 item
                 container
@@ -28,4 +28,4 @@ const RecentlyAdded = () => {
     );
 };
 
-export default RecentlyAdded;
+export default AllMoviesAndSeries;

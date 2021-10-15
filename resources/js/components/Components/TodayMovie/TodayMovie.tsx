@@ -1,32 +1,14 @@
 import React from "react";
-import { createTheme, styled } from "@mui/material/styles";
 import Movie from "../Movie/Movie";
 import MovieCarousel from "../MovieCarousel/MovieCarousel";
 import { Paper } from "@mui/material";
-import { getPopularMovie } from "../../Hooks/api";
-
-const theme = createTheme();
+import { getPopularMovies } from "../../Hooks/api";
 
 interface PropsTypes {}
 interface StateTypes {}
 
-const MovieContainer = styled("div")<{ recommend?: boolean }>(
-    ({ theme, recommend }) => ({
-        width: "100%",
-        height: recommend ? "500px" : "100vh",
-        backgroundImage:
-            "url('https://spacequotations.com/wp-content/uploads/2019/01/interstellar.jpg')",
-        backgroundPosition: "contain",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    })
-);
-
 const TodayMovie = () => {
-    const data = getPopularMovie();
+    const data = getPopularMovies();
 
     return (
         <Paper sx={{ width: "100%", height: { xs: 365, sm: 500 } }}>
