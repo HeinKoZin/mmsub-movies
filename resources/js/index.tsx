@@ -10,20 +10,7 @@ import {
 } from "@mui/material/styles";
 import { ThemeProvider as ThemeProviderTwo } from "@mui/styles";
 import { SWRConfig } from "swr";
-
-let theme = createTheme({
-    palette: {
-        mode: "light",
-        primary: {
-            main: "#ffffff",
-        },
-        secondary: {
-            main: "#1D1E22",
-        },
-    },
-});
-
-theme = responsiveFontSizes(theme);
+import theme from "./components/Hooks/theme";
 
 declare module "@mui/styles" {
     interface DefaultTheme extends Theme {}
