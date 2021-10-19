@@ -60,16 +60,16 @@ const HomeMenuBar = () => {
                         : "flex-start",
                 }}
             >
-                <NavLink
+                {/* <NavLink
                     to="/"
                     style={({ isActive }) =>
                         isActive ? activeStyle : nonActiveStyle
                     }
                 >
                     Recently Added
-                </NavLink>
+                </NavLink> */}
                 <NavLink
-                    to="/all"
+                    to="/"
                     style={({ isActive }) =>
                         isActive ? activeStyle : nonActiveStyle
                     }
