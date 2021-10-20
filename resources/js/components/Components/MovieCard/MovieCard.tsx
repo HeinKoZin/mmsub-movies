@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     alpha,
     Button,
     Card,
     CardMedia,
+    darken,
     Grid,
-    Paper,
+    IconButton,
     styled,
     Tooltip,
     tooltipClasses,
@@ -27,6 +28,8 @@ import theme from "../../Hooks/theme";
 const imagePath = "https://image.tmdb.org/t/p/original";
 
 const MovieCard = (props: ResultsTypes) => {
+    const [hover, setHover] = useState<boolean>(false);
+
     return (
         <PopperTooltip
             title={
@@ -37,6 +40,12 @@ const MovieCard = (props: ResultsTypes) => {
                 )
             }
             placement="right"
+            onMouseEnter={(e) => {
+                setHover(true);
+            }}
+            onMouseLeave={(e) => {
+                setHover(false);
+            }}
         >
             <Grid item md={2} xs={4}>
                 <Card sx={{ position: "relative" }}>
@@ -71,6 +80,35 @@ const MovieCard = (props: ResultsTypes) => {
                             {props?.vote_average}
                         </Typography>
                     </div>
+
+                    {/* NOTE: PlayButton on Hover */}
+                    <div
+                        style={{
+                            width: "100%",
+                            position: "absolute",
+                            height: useMediaQuery(theme.breakpoints.down("sm"))
+                                ? 180
+                                : 250,
+                            backgroundColor: alpha(
+                                theme.palette.common.black,
+                                0.5
+                            ),
+                            display: hover ? "flex" : "none",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <CustomIconButton>
+                            <PlayArrowIcon
+                                sx={{
+                                    color: theme.palette.myIconColor.main,
+                                    fontSize: 30,
+                                }}
+                            />
+                        </CustomIconButton>
+                    </div>
+
+                    {/* NOTE: Movie Cover */}
                     <CardMedia
                         component="img"
                         image={
@@ -80,8 +118,6 @@ const MovieCard = (props: ResultsTypes) => {
                         }
                         sx={{ height: { xs: 180, sm: 250 } }}
                     />
-
-                    {/* Release Data */}
                 </Card>
 
                 <Typography
@@ -104,6 +140,7 @@ const MovieCard = (props: ResultsTypes) => {
                     }}
                     noWrap
                 >
+                    {/* Release Data */}
                     {props?.release_date?.slice(0, 4)}{" "}
                     <CircleIcon
                         sx={{ fontSize: 6, marginLeft: 1, marginRight: 1 }}
@@ -114,6 +151,16 @@ const MovieCard = (props: ResultsTypes) => {
         </PopperTooltip>
     );
 };
+
+const CustomIconButton = styled("button")(({ theme }) => ({
+    padding: theme.spacing(0.5),
+    backgroundColor: theme.palette.primary.main,
+    borderRadius: theme.spacing(10),
+    cursor: "pointer",
+    "& :hover": {
+        opacity: 0.6,
+    },
+}));
 
 const PopperTooltip = styled(({ className, ...props }: TooltipProps) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -161,7 +208,7 @@ const DetailPopper = (props?: ResultsTypes) => {
                         sx={{
                             fontSize: 17,
                             marginRight: 0.5,
-                            color: "#fe9920",
+                            color: theme.palette.myIconColor.main,
                         }}
                     />
                     <span>{props?.vote_average}</span>
@@ -207,7 +254,7 @@ const DetailPopper = (props?: ResultsTypes) => {
                     <Button
                         style={{
                             backgroundColor: "#424242",
-                            fontSize: 12,
+                            fontSize: 13,
                             textTransform: "capitalize",
                             height: 40,
                         }}
@@ -216,32 +263,31 @@ const DetailPopper = (props?: ResultsTypes) => {
                     >
                         <PlayArrowIcon
                             sx={{
-                                fontSize: 17,
+                                fontSize: 24,
                                 marginRight: 0.5,
-                                color: "#fe9920",
+                                color: theme.palette.myIconColor.main,
                             }}
                         />{" "}
                         Watch Now
                     </Button>
                 </Grid>
                 <Grid item>
-                    <Button
+                    <CustomIconButton
                         style={{
-                            backgroundColor: "#424242",
-                            fontSize: 12,
-                            textTransform: "capitalize",
+                            backgroundColor:
+                                theme.palette.myIconColor.secondary,
                             height: 40,
+                            width: 40,
+                            padding: 0,
                         }}
-                        size="small"
                     >
                         <FavoriteBorderIcon
                             sx={{
                                 fontSize: 20,
-                                marginRight: 0.5,
-                                color: "#fe9920",
+                                color: theme.palette.primary.main,
                             }}
                         />
-                    </Button>
+                    </CustomIconButton>
                 </Grid>
             </Grid>
         </div>
