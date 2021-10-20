@@ -279,6 +279,7 @@ const DetailPopper = (props?: ResultsTypes) => {
                             height: 40,
                             width: 40,
                             padding: 0,
+                            borderRadius: theme.spacing(1),
                         }}
                     >
                         <FavoriteBorderIcon
