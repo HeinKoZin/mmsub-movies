@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 export const localStorageProvider = () => {
+=======
+const localStorageProvider = () => {
+>>>>>>> 5f90b77821d4170210ebd6cc593edc61da5a7c82
     // When initializing, we restore the data from `localStorage` into a map.
     const map = new Map(JSON.parse(localStorage.getItem("app-cache") || "[]"));
 
