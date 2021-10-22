@@ -35,6 +35,24 @@ export type MovieDataTypes = {
     results: ResultsTypes[];
 };
 
+export interface MovieDetailsDataTypes {
+    adult?: boolean;
+    genres?: Genres[];
+    id?: number;
+    original_language?: string;
+    original_title?: string;
+    overview?: string;
+    popularity?: number;
+    release_date?: string;
+    vote_average?: number;
+    title?: string;
+    runtime?: number;
+}
+type Genres = {
+    id?: number;
+    name?: string;
+};
+
 export type ResultsTypes = {
     adult: boolean;
     backdrop_path: string;

@@ -4,9 +4,7 @@ import {
     Button,
     Card,
     CardMedia,
-    darken,
     Grid,
-    IconButton,
     styled,
     Tooltip,
     tooltipClasses,
@@ -22,13 +20,15 @@ import {
     PlayArrow as PlayArrowIcon,
     FavoriteBorder as FavoriteBorderIcon,
 } from "@mui/icons-material";
-import { ResultsTypes } from "../Movie/Movie";
+import { MovieDetailsDataTypes, ResultsTypes } from "../Movie/Movie";
 import theme from "../../Hooks/theme";
+import { getDetailsOfMovie } from "../../Hooks/api";
 
 const imagePath = "https://image.tmdb.org/t/p/original";
 
 const MovieCard = (props: ResultsTypes) => {
     const [hover, setHover] = useState<boolean>(false);
+    const movieDetails = getDetailsOfMovie(props.id);
 
     return (
         <PopperTooltip
@@ -36,7 +36,7 @@ const MovieCard = (props: ResultsTypes) => {
                 useMediaQuery(theme.breakpoints.down("sm")) ? (
                     ""
                 ) : (
-                    <DetailPopper {...props} />
+                    <DetailPopper {...movieDetails} />
                 )
             }
             placement="right"
@@ -145,13 +145,14 @@ const MovieCard = (props: ResultsTypes) => {
                     <CircleIcon
                         sx={{ fontSize: 6, marginLeft: 1, marginRight: 1 }}
                     />
-                    105 mins
+                    {movieDetails?.runtime} mins
                 </Typography>
             </Grid>
         </PopperTooltip>
     );
 };
 
+// NOTE: PopperTooltip
 const CustomIconButton = styled("button")(({ theme }) => ({
     padding: theme.spacing(0.5),
     backgroundColor: theme.palette.primary.main,
@@ -175,7 +176,7 @@ const PopperTooltip = styled(({ className, ...props }: TooltipProps) => (
     },
 }));
 
-const DetailPopper = (props?: ResultsTypes) => {
+const DetailPopper = (props?: MovieDetailsDataTypes) => {
     return (
         <div
             style={{
@@ -198,7 +199,7 @@ const DetailPopper = (props?: ResultsTypes) => {
             >
                 <Grid
                     item
-                    md={4}
+                    md={3}
                     display="flex"
                     flexDirection="row"
                     justifyContent="flex-start"
@@ -213,11 +214,18 @@ const DetailPopper = (props?: ResultsTypes) => {
                     />
                     <span>{props?.vote_average}</span>
                 </Grid>
-                <Grid item md={4}>
-                    {props?.vote_count}
+                <Grid item md={5} sx={{ textAlign: "center" }}>
+                    <AccessTimeIcon
+                        sx={{
+                            fontSize: 17,
+                            marginRight: 0.5,
+                            color: theme.palette.myIconColor.main,
+                        }}
+                    />
+                    <span>{props?.runtime} mins</span>
                 </Grid>
                 <Grid item md={4}>
-                    {/* <CircleIcon sx={{ fontSize: 10, marginRight: 1 }} /> */}
+                    <CircleIcon sx={{ fontSize: 10, marginRight: 1 }} />
                     {props?.popularity}
                 </Grid>
             </Grid>
@@ -279,6 +287,7 @@ const DetailPopper = (props?: ResultsTypes) => {
                             height: 40,
                             width: 40,
                             padding: 0,
+                            borderRadius: theme.spacing(1),
                         }}
                     >
                         <FavoriteBorderIcon
